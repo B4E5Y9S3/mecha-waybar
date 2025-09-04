@@ -1,0 +1,9 @@
+{
+	"custom/audio-switch": {
+    "format": " {}",  // You can customize the icon
+    "exec": "cat ~/.config/waybar/audio_output_status",
+    "interval": "once",
+    "on-click": "~/.config/waybar/scripts/audio-switch.sh",
+    "tooltip": "Click to toggle audio output"
+}
+}

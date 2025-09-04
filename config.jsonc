@@ -13,13 +13,11 @@
 		"group/theme_switcher",
 		"custom/left_div#1",
 		"hyprland/workspaces",
-		"custom/right_div#1",
-		"hyprland/window"
+		"custom/right_div#1"
 	],
 	"modules-center": [
-		"hyprland/windowcount",
 		"custom/left_div#2",
-		"temperature",
+		"custom/audio-switch",
 		"custom/left_div#3",
 		"memory",
 		"custom/left_div#4",
@@ -33,16 +31,11 @@
 		"clock#time",
 		"custom/right_div#3",
 		"clock#date",
-		"custom/right_div#4",
-		"network",
-		"bluetooth",
-		"custom/system_update",
-		"custom/right_div#5"
+		"custom/right_div#4"
 	],
 	"modules-right": [
+		"tray",
 		"mpris",
-		"custom/left_div#6",
-		"group/wireplumber",
 		"custom/left_div#7",
 		"backlight",
 		"custom/left_div#8",

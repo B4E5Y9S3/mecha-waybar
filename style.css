@@ -29,16 +29,20 @@
 	background-color: @workspaces;
 }
 button {
+	font-size: 15px;
 	border-radius: 16px;
-	padding: 0 10px;
+	padding: 0 7px;
 }
 button:hover {
 	background-color: @hover-bg;
 	color: @hover-fg;
 }
+button.active {
+	background-color: @hover-bg;
+}
 button.active label {
-	font-size: 23px;
-	color: @accent;
+	font-size: 18px;
+	color: @text;
 }
 
 /* window and window count */
@@ -248,4 +252,10 @@ tooltip label {
 tooltip decoration {
 	border: none;
 	background-color: transparent;
+}
+
+/*       Tray		*/
+
+#tray {
+	padding: 0 6px;
 }
