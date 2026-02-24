@@ -13,14 +13,11 @@
 	------------*/
 
 	"modules-left": [
-		"group/user",
 		"custom/left_div#1",
 		"hyprland/workspaces",
-		"custom/right_div#1",
-		"hyprland/window"
+		"custom/right_div#1"
 	],
 	"modules-center": [
-		"hyprland/language",
 		"custom/left_div#2",
 		"temperature",
 		"custom/left_div#3",
@@ -37,12 +34,11 @@
 		"custom/right_div#3",
 		"clock#date",
 		"custom/right_div#4",
-		"network",
-		"bluetooth",
-		"custom/update",
+		"custom/speedmeter",
 		"custom/right_div#5"
 	],
 	"modules-right": [
+		"tray",
 		"mpris",
 		"custom/left_div#6",
 		"group/pulseaudio",

@@ -57,3 +57,13 @@
 #custom-power:hover {
 	background-color: @hover-bg;
 }
+
+#tray {
+  padding: 0 8px 0 8px;
+}
+
+#tray menu {
+	background-color: @volume;
+	padding: 6px 10px;
+	border-radius: 3px;
+}
