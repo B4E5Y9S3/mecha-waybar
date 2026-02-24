@@ -1,0 +1,8 @@
+{
+    "custom/speedmeter": {
+    "exec": "~/.config/waybar/scripts/speedmeter",
+    "return-type": "json",
+    "format": "{}",
+    "format-ethernet":"{icon} {ifname} ⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}"
+    }
+}
