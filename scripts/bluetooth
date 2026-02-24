@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Scan, select, pair, and connect to Bluetooth devices. Using "off" powers off
+# Scan, select, pair, and connect to Bluetooth devices. Passing "off" powers off
 # Bluetooth.
 #
 # Requirements:

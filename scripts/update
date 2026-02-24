@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #
-# Check for official and AUR package updates and upgrade them. Using "module"
-# outputs a Waybar module in JSON format.
+# Update pacman and AUR packages. Passing "module" returns the data in JSON
+# format.
 #
 # Requirements:
 # - libnotify (notify-send)
 # - pacman-contrib (checkupdates)
-# - An AUR helper (optional, auto-detected)
+# - AUR helper (optional, auto-detected)
 #
 # Author:  Jesse Mirabel <sejjymvm@gmail.com>
 # Date:    August 16, 2025
