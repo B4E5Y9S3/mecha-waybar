@@ -102,22 +102,22 @@ display_module() {
 }
 
 main() {
-	FAILED=false
-	UPDATES=0
-	AUR_UPDATES=0
+  # Update the module on exit
+  trap "pkill -RTMIN+1 waybar" EXIT
+
+  FAILED=false
+  UPDATES=0
+  AUR_UPDATES=0
 
   get_helper
 
-	case $1 in
-		module)
-			check_updates
-			display_module
-			;;
-		*)
-			# Update the module on exit
-			trap "pkill -RTMIN+1 waybar" EXIT
-
-			printf "%bChecking for updates...%b\n" "$FG_BLUE" "$FG_RESET"
+  case $1 in
+  module)
+    check_updates
+    display_module
+    ;;
+  *)
+    printf "%bChecking for updates...%b\n" "$FG_BLUE" "$FG_RESET"
 
     check_updates
     update_packages
