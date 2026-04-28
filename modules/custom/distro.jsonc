@@ -15,15 +15,15 @@
 		// "max-length":
 		// "align":
 		// "justify":
-		// "on-click":
+		"on-click": "~/.config/waybar/scripts/menu",
 		// "on-click-middle":
 		// "on-click-right":
 		// "on-update":
 		// "on-scroll-up":
 		// "on-scroll-down":
 		// "smooth-scrolling-threshold":
-		"tooltip": false
-		// "tooltip-format":
+		"tooltip": "menu list",
+		"tooltip-format": "menu list"
 		// "escape":
 		// "menu":
 		// "menu-file":

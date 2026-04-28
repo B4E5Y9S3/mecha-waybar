@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# menu items (Key = Display Name, Value = Command)
+declare -A MENUOPTIONS=(
+    ["🚀 App Menu"]="fuzzel"
+    ["📋 Clipboard"]="cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
+    ["😀 Emoji Picker"]="hypremoji"
+    ["⚡ Power Menu"]="wlogout"
+)
+
+# Joining the keys with newlines to feed into fuzzel
+# printf '%s\n' "${!MENUOPTIONS[@]}" gets all the keys (the labels)
+SELECTION=$(printf '%s\n' "${!MENUOPTIONS[@]}" | fuzzel --dmenu -p "Run: ")
+
+# Execute
+if [[ -n "$SELECTION" ]]; then
+    eval "${MENUOPTIONS[$SELECTION]}"
+fi
