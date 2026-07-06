@@ -12,7 +12,7 @@
     Temperature
 -----------------*/
 
-#custom-left_div.2 {
+#custom-left_div.2 label {
   color: @temperature;
 }
 
@@ -24,7 +24,7 @@
     Memory
 ------------*/
 
-#custom-left_div.3 {
+#custom-left_div.3 label {
   background-color: @temperature;
   color: @memory;
 }
@@ -37,7 +37,7 @@
     CPU
 ---------*/
 
-#custom-left_div.4 {
+#custom-left_div.4 label {
   background-color: @memory;
   color: @cpu;
 }
@@ -46,7 +46,7 @@
   background-color: @cpu;
 }
 
-#custom-left_inv.1 {
+#custom-left_inv.1 label {
   color: @cpu;
 }
 
@@ -54,8 +54,8 @@
     Distro icon
 -----------------*/
 
-#custom-left_div.5,
-#custom-right_div.2 {
+#custom-left_div.5 label,
+#custom-right_div.2 label {
   color: @accent;
 }
 
@@ -70,7 +70,7 @@
     Idle inhibitor
 --------------------*/
 
-#custom-right_inv.1 {
+#custom-right_inv.1 label {
   color: @time;
 }
 
@@ -87,7 +87,7 @@
   background-color: @time;
 }
 
-#custom-right_div.3 {
+#custom-right_div.3 label {
   background-color: @date;
   color: @time;
 }
@@ -101,7 +101,7 @@
   background-color: @date;
 }
 
-#custom-right_div.4 {
+#custom-right_div.4 label {
   background-color: @tray;
   color: @date;
 }
@@ -125,7 +125,6 @@
   padding: 0 8px 0 2px;
 }
 
-#custom-right_div.5 {
+#custom-right_div.5 label {
   color: @tray;
 }
-
