@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# network_traffic.sh [-t POLLING_INTERVAL] [NETWORK_INTERFACE...]
+#
+# Prints one waybar JSON object per polling interval with the aggregate
+# download/upload rate of the given interfaces (default: all except `lo`).
+# Needs bash >= 4.3.
+
+: "${rate_max:=1000000}" # max transfer rate (bytes/s) for {percent}; override via env var
+
+# `snore` adapted from https://blog.dhampir.no/content/sleeping-without-a-subprocess-in-bash-and-how-to-sleep-forever
+# without MacOS workaround; I don't touch IFS so no need to bother with it
+snore() {
+  local IFS
+  [[ -n "${_snore_fd:-}" ]] || { exec {_snore_fd}<> <(:); } 2>/dev/null
+  read ${1:+-t "$1"} -u $_snore_fd || :
+}
+
+# human_readable BYTES VARNAME  -- stores the result in VARNAME (no subshell)
+human_readable() {
+  local -a hrunits=(B K M G T P)
+  local n=$1
+  ((n < 0)) && n=0
+  local ndigits=${#n}
+  local idxunit=$(((2 + ndigits) / 3 - 1))
+  ((idxunit > 5)) && idxunit=5
+  local lentrim=$((ndigits - idxunit * 3))
+  printf -v "$2" '%s' "${n::lentrim}${hrunits[idxunit]}"
+}
+
+exit_err() {
+  printf '{"text": "⚠ %s", "tooltip": "%s", "class": "error"}\n' "$1" "$2"
+  exit
+}
+
+# --- arguments ---------------------------------------------------------------
+
+isecs=1
+while getopts t: opt; do
+  case $opt in
+  t) isecs=$OPTARG ;;
+  *) exit_err "usage" "usage: ${0##*/} [-t SECONDS] [INTERFACE...]" ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+# NOTE: `snore` would take a decimal interval but bash arithmetic does not
+[[ $isecs =~ ^[1-9][0-9]*$ ]] || exit_err "${isecs}" "${isecs} is not a valid polling interval"
+
+# set of wanted interfaces; empty means "all except lo"
+declare -A wanted=()
+for iface in "$@"; do
+  [[ -L /sys/class/net/${iface} ]] || exit_err "${iface}" "${iface} is not an existing network interface name"
+  wanted[$iface]=1
+done
+
+# --- sampling ----------------------------------------------------------------
+
+# NOTE: `/proc/net/dev` format is:
+#   interface:
+#       RX  bytes packets errs drop fifo  frame compressed multicast
+#       TX  bytes packets errs drop fifo  colls carrier compressed
+
+declare -A prev_rx=() prev_tx=()
+nl='\n' # literal backslash-n, i.e. a JSON newline escape
+
+sample() {
+  local iface rx tx p_rx p_tx d_rx d_tx line hr_rx hr_tx pct
+  local tot_rx=0 tot_tx=0 tooltip=""
+
+  {
+    read -r
+    read -r # skip the two header lines
+    # IFS=': ' also copes with names glued to the counters ("br-0123456789a:123")
+    while IFS=': ' read -r iface rx _ _ _ _ _ _ _ tx _; do
+      if ((${#wanted[@]})); then
+        [[ -n ${wanted[$iface]:-} ]] || continue
+      else
+        [[ $iface == lo ]] && continue
+      fi
+
+      if [[ -n ${prev_rx[$iface]:-} ]]; then
+        p_rx=${prev_rx[$iface]} p_tx=${prev_tx[$iface]}
+        ((d_rx = (rx - p_rx) / isecs, d_tx = (tx - p_tx) / isecs))
+        ((d_rx < 0)) && d_rx=0 # counter reset (interface bounced)
+        ((d_tx < 0)) && d_tx=0
+      else
+        d_rx=0 d_tx=0 # first time we see it: baseline only
+      fi
+      prev_rx[$iface]=$rx prev_tx[$iface]=$tx
+
+      ((tot_rx += d_rx, tot_tx += d_tx))
+
+      human_readable "$d_rx" hr_rx
+      human_readable "$d_tx" hr_tx
+      printf -v line '%s  %4s⇣ %4s⇡' "$iface" "$hr_rx" "$hr_tx"
+      tooltip+="${tooltip:+$nl}${line}"
+    done
+  } </proc/net/dev
+
+  human_readable "$tot_rx" hr_rx
+  human_readable "$tot_tx" hr_tx
+  pct=$((100 * (tot_rx + tot_tx) / rate_max))
+  ((pct > 100)) && pct=100
+
+  printf '{"text": "%4s⇣ %4s⇡", "tooltip": "%s", "percentage": %d}\n' \
+    "$hr_rx" "$hr_tx" "$tooltip" "$pct"
+}
+
+sample # first pass only records the baseline (prints 0)
+while snore "$isecs"; do
+  sample
+done
+
+# NOTE: in waybar config (do NOT use "interval"):
+#         "custom/network_traffic": {
+#             "exec": "~/.config/waybar/scripts/network_traffic.sh",
+#             "return-type": "json",
+#             "format": "Speed: {}",    // optional
+#         },

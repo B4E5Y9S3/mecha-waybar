@@ -2,7 +2,9 @@
  * Ignore GTK theme
  * https://github.com/Alexays/Waybar/issues/1351
  */
-* { all: initial; }
+* {
+	all: initial;
+}
 
 @import "themes/catppuccin-mocha.css";
 
@@ -16,7 +18,8 @@
 #waybar {
 	background-color: @shadow;
 }
-#waybar > box {
+
+#waybar>box {
 	margin: 3px;
 	background-color: @bg-0;
 }
@@ -31,6 +34,7 @@ button {
 	padding: 0 10px;
 	min-width: 16px;
 }
+
 button:hover {
 	background-color: @hover-bg;
 	color: @hover-fg;
@@ -40,7 +44,8 @@ tooltip {
 	border: 2px solid @br;
 	background-color: @bg-0;
 }
-tooltip > box {
+
+tooltip>box {
 	padding: 0 6px;
 }
 
@@ -54,6 +59,7 @@ tooltip > box {
 	padding: 0 1px;
 	background-color: @bg-1;
 }
+
 #workspaces button.active label,
 #workspaces button.focused label {
 	font-size: 18.75px;
@@ -64,7 +70,9 @@ tooltip > box {
  * Prevent large Unicode characters from increasing the bar height
  * https://github.com/Alexays/Waybar/issues/2026
  */
-#window { margin: -1px 0; }
+#window {
+	margin: -1px 0;
+}
 
 #window label {
 	padding-left: 12px;
@@ -79,6 +87,7 @@ tooltip > box {
 #temperature {
 	background-color: @bg-1;
 }
+
 #temperature.critical {
 	color: @critical;
 }
@@ -86,9 +95,11 @@ tooltip > box {
 #memory {
 	background-color: @bg-2;
 }
+
 #memory.warning {
 	color: @warning;
 }
+
 #memory.critical {
 	color: @critical;
 }
@@ -96,9 +107,11 @@ tooltip > box {
 #cpu {
 	background-color: @bg-3;
 }
+
 #cpu.warning {
 	color: @warning;
 }
+
 #cpu.critical {
 	color: @critical;
 }
@@ -113,10 +126,12 @@ tooltip > box {
 #idle_inhibitor {
 	background-color: @bg-3;
 }
+
 #idle_inhibitor:hover,
 #idle_inhibitor.deactivated {
 	color: @hover-fg;
 }
+
 #clock.time {
 	padding-right: 6px;
 	background-color: @bg-3;
@@ -126,6 +141,7 @@ tooltip > box {
 	padding-left: 6px;
 	background-color: @bg-2;
 }
+
 #clock.date:hover {
 	color: @hover-fg;
 }
@@ -134,20 +150,25 @@ tooltip > box {
 	padding: 0 6px 0 4px;
 	background-color: @bg-1;
 }
+
 #network:hover {
 	color: @hover-fg;
 }
+
 #bluetooth {
 	padding: 0 4px;
 	background-color: @bg-1;
 }
+
 #bluetooth:hover {
 	color: @hover-fg;
 }
+
 #custom-update {
 	padding: 0 6px 0 1px;
 	background-color: @bg-1;
 }
+
 #custom-update:hover {
 	color: @hover-fg;
 }
@@ -157,6 +178,7 @@ tooltip > box {
 #mpris {
 	padding: 0 12px;
 }
+
 #mpris:hover,
 #mpris.paused {
 	color: @hover-fg;
@@ -166,6 +188,7 @@ tooltip > box {
 #wireplumber {
 	background-color: @bg-1;
 }
+
 #pulseaudio:hover,
 #pulseaudio.output.muted,
 #pulseaudio.input.source-muted,
@@ -181,12 +204,15 @@ tooltip > box {
 #battery {
 	background-color: @bg-3;
 }
+
 #battery.warning {
 	color: @warning;
 }
+
 #battery.critical {
 	color: @critical;
 }
+
 #battery.charging {
 	color: @charging;
 }
@@ -197,6 +223,7 @@ tooltip > box {
 	padding: 0 19px 0 16px;
 	color: @accent;
 }
+
 #custom-power:hover {
 	background-color: @hover-bg;
 	color: @hover-fg;

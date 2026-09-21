@@ -1,0 +1,7 @@
+{
+  "custom/network_traffic": {
+             "exec": "~/.config/waybar/scripts/network_traffic",
+             "return-type": "json",
+             "format": "{}",    // optional
+  }
+}

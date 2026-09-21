@@ -11,7 +11,7 @@
 	"include": [
 		"~/.config/waybar/modules/custom/*.jsonc",
 		"~/.config/waybar/modules/hyprland/*.jsonc",
-		// "~/.config/waybar/modules/optional/*.jsonc",
+	  "~/.config/waybar/modules/optional/*.jsonc",
 		"~/.config/waybar/modules/*.jsonc"
 	],
 
@@ -22,7 +22,7 @@
 		"hyprland/workspaces",
 		"custom/right#bg-1",
 
-		"hyprland/window"
+		"mpris"
 	],
 
 	"modules-center": [
@@ -49,16 +49,11 @@
 
 		"clock#date",
 		"custom/right#bg-2",
-
-		"network",
-		"bluetooth",
-		"custom/update",
+    "custom/network_traffic",
 		"custom/right#bg-1"
 	],
 
 	"modules-right": [
-		"mpris",
-
 		"custom/left#bg-1",
 		"group/pulseaudio",
 
